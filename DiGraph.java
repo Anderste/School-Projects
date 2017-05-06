@@ -22,7 +22,9 @@ public class DiGraph {
    private static final String NEWLINE = System.getProperty("line.separator");
    private int V;
    private int E;
+
    private Map<String, Set<String>> adj;
+
    
    /**
     * Initializes an empty graph
@@ -57,6 +59,7 @@ public class DiGraph {
 	 * @param  v one vertex in the graph
     * @throws IllegalArgumentException if v is not a valid vertex
     */
+
    private void validateVertex(String v) {
       if (!adj.containsKey(v))
          throw new IllegalArgumentException("Invalid Vertex " + v);
@@ -68,6 +71,7 @@ public class DiGraph {
        * @param  v one vertex in the graph
        * @return true if v was added, false otherwise
    */
+
    public boolean addVertex(String v) {
       if (adj.containsKey(v))
          return false;
@@ -85,7 +89,9 @@ public class DiGraph {
     * @return true if edge was added, false otherwise
     * @throws IllegalArgumentException if either vertex does not exist
     */
+
    public boolean addEdge(String v, String w) {
+
       validateVertex(v);
       validateVertex(w);
       if (adj.get(v).contains(w))
@@ -102,6 +108,7 @@ public class DiGraph {
     * @return a set containing the vertices adjacent to vertex <tt>v</tt>
     * @throws IllegalArgumentException if v is not a valid vertex
     */
+
    public Set<Integer> getAdjacent(String v) {
       validateVertex(v);
       return new HashSet<String>(adj.get(v));
@@ -125,4 +132,5 @@ public class DiGraph {
       }
       return s.toString();
    }
+
 }
