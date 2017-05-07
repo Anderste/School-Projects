@@ -1,3 +1,4 @@
+import java.util.Comparator;
 public class User implements Comparable<User>
 {
 	private int followers;
@@ -20,15 +21,15 @@ public class User implements Comparable<User>
 	{
 		if(name.equals(aUser.getName()))
 			return 0;
-		if(followers > aUser.getFollowers())
+		if(following > aUser.getFollowing())
 			return 1;
+		if(following < aUser.getFollowing())
+			return -1;
 		if(followers < aUser.getFollowers())
 			return -1;
-		if(following > aUser.getFollowing())
-			return -1;
-		if(following < aUser.getFollowing())
+		if(followers > aUser.getFollowers())
 			return 1;
-		return -1;
+		return 0;
 	}
 	@Override
 	public boolean equals(Object obj)
@@ -59,5 +60,13 @@ public class User implements Comparable<User>
 	public int getFollowing()
 	{
 		return following;
+	}
+	public boolean potentialLeader()
+	{
+		if(followers > following)
+		{
+			return true;
+		}
+		return false;
 	}
 }
