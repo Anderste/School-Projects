@@ -109,7 +109,7 @@ public class DiGraph {
     * @throws IllegalArgumentException if v is not a valid vertex
     */
 
-   public Set<Integer> getAdjacent(String v) {
+   public Set<String> getAdjacent(String v) {
       validateVertex(v);
       return new HashSet<String>(adj.get(v));
    }
@@ -123,9 +123,9 @@ public class DiGraph {
    public String toString() {
       StringBuilder s = new StringBuilder();
       s.append(V + " vertices, " + E + " edges " + NEWLINE);
-      for (int v: adj.keySet()) {
+      for (String v: adj.keySet()) {
          s.append(v + ": ");
-         for (int w : adj.get(v)) {
+         for (String w : adj.get(v)) {
             s.append(w + " ");
          }
          s.append(NEWLINE);
