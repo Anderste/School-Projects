@@ -4,11 +4,11 @@ import java.io.*;
 public class SocNet 
 {
 	private DiGraph network;
-	private TreeMap<User, User> userList;
+	private ArrayList<User> userList;
 	public SocNet(String filename)
 	{
 		network = new DiGraph();
-		userList = new TreeMap<User, User>();
+		userList = new ArrayList<User>();
 		try
 		{
 			Scanner input = new Scanner(new File(filename));
@@ -22,32 +22,54 @@ public class SocNet
 				if(!addedV)
 				{
 					User userV = new User(v);
-					userList.get(userV).follow();
+					int i = userList.indexOf(userV);
+					userList.get(i).follow();
 				}
 				else
 				{
 					User userV = new User(v, 0, 1);
-					userList.put(userV, userV);
+					userList.add(userV);
 				}
 				if(!addedW)
 				{
 					User userW = new User(w);
-					userList.get(userW).addFollower();
+					int i = userList.indexOf(userW);
+					userList.get(i).addFollower();
 				}
 				else
 				{
 					User userW = new User(w, 1, 0);
-					userList.put(userW, userW);
+					userList.add(userW);
 				}
 				input.nextLine();
 			}
 			input.close();
+			// I am paying for a sort here in order to make top follower
+			// constant I also avoid the complicated way i would have
+			// to find this using the graph. Also since we are only
+			// making this once I only need to pay for sorting it once
+			userList.sort(null);
 		}
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File " + filename + " not found");
 			System.out.println(e.getMessage());
 		}
+	}
+	public String topFollower()
+	{
+	 	return userList.get(userList.size()-1).getName();
+	}
+	public String mostPopular()
+	{
+		User mPU = userList.get(0);
+		for(int i = 1; i < userList.size(); i++)
+		{
+			User u = userList.get(i);
+			if(u.getFollowers() > mPU.getFollowers())
+				mPU = u;
+		}
+		return mPU.getName();
 	}
 	
 }
